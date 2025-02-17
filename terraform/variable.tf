@@ -7,7 +7,7 @@ variable "project_id" {
 variable "zone" {
   description = "GCP Zone"
   type        = string
-  default     = "europe-west1-b"
+  default     = "europe-west9"
 }
 
 variable "team_id" {
