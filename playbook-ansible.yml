@@ -41,9 +41,9 @@
           After=network.target
 
           [Service]
-          User=ubuntu
+          User=minecraft
           WorkingDirectory=/opt
-          ExecStart=java -Xmx1024M -Xms1024M -jar server.jar nogui
+          ExecStart=java -Xmx1024M -Xms1024M -jar /opt/server.jar nogui
           Restart=on-failure
 
           [Install]
