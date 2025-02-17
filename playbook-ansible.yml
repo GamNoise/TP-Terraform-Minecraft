@@ -11,10 +11,15 @@
       apt:
         update_cache: yes  # Met à jour le cache APT
 
-    - name: Installation de Java
+    # Installation de Java 21
+    - name: Télécharger Java 21
+      get_url:
+        url: "https://download.oracle.com/java/21/latest/jdk-21_linux-x64_bin.deb"
+        dest: "/tmp/jdk-21_linux-x64_bin.deb"
+    - name: Installer Java 21
       apt:
-        name: "{{ java_package }}"  # Installe le paquet Java spécifié
-        state: present
+        deb: "/tmp/jdk-21_linux-x64_bin.deb"
+
 
     - name: Ajouter la clé GPG du dépôt Google Cloud SDK
       apt_key:
