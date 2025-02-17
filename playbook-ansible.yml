@@ -16,9 +16,10 @@
         name: "{{ java_package }}"
         state: present
 
-    - name: Installation de Google Cloud SDK
-      apt:
-        deb: https://packages.cloud.google.com/apt/pool/google-cloud-sdk/google-cloud-sdk_369.0.0-0_all.deb
+    - name: Ajouter la clé GPG du dépôt Google Cloud SDK
+      apt_key:
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        state: present
 
     - name: Téléchargement de Minecraft Server JAR
       get_url:
