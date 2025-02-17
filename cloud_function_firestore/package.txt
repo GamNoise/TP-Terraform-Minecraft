@@ -1,0 +1,7 @@
+{
+  "name": "firestore-ip-function",
+  "version": "1.0.0",
+  "dependencies": {
+    "@google-cloud/firestore": "^5.0.0"
+  }
+}

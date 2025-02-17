@@ -1,0 +1,20 @@
+{
+  "builders": [
+    {
+      "type": "googlecompute",
+      "project_id": "your-project-id",
+      "zone": "europe-west1-b",
+      "image_family": "minecraft-image",
+      "image_name": "minecraft-server-image",
+      "source_image_family": "debian-11",
+      "ssh_username": "your-username",
+      "image_description": "Minecraft server image",
+      "tags": ["minecraft"],
+      "communicator": "ssh",
+      "ssh_private_key_file": "/path/to/your/private-key",
+      "ssh_username": "your-username",
+      "ansible_local": true,
+      "playbook_file": "ansible/playbook.yml"
+    }
+  ]
+}
