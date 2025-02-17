@@ -1,6 +1,7 @@
 variable "project_id" {
   description = "GCP Project ID"
   type        = string
+  default     = "bionic-union-451212-m1"
 }
 
 variable "zone" {
