@@ -26,6 +26,13 @@
         url: "https://piston-data.mojang.com/v1/objects/4707d00eb834b446575d89a61a11b5d548d8c001/server.jar"  # URL du fichier JAR du serveur Minecraft
         dest: /opt/minecraft_server.jar  # Destination du fichier téléchargé
 
+    # moove le jarfile en server.jar
+    - name: Renommer le fichier Minecraft Server JAR
+      command: mv /opt/minecraft_server.jar /opt/server.jar  # Renomme le fichier JAR en server.jar
+      args:
+        creates: /opt/server.jar
+
+        
     - name: Creation du service Minecraft dans linux
       copy:
         dest: /etc/systemd/system/minecraft.service  # Chemin du fichier de service systemd
@@ -37,7 +44,7 @@
           [Service]
           User=ubuntu
           WorkingDirectory=/opt
-          ExecStart=/usr/bin/java -Xmx2G -Xms2G -jar minecraft_server.jar nogui
+          ExecStart=/usr/bin/java java -Xmx1024M -Xms1024M -jar server.jar nogui
           Restart=on-failure
 
           [Install]
@@ -100,3 +107,24 @@
         name: minecraft  # Active et démarre le service Minecraft
         enabled: yes
         state: started
+
+        # java -Xmx1024M -Xms1024M -jar server.jar nogui
+
+# opt/minecraft -> 
+
+# Créer un fichier server.properties avec  nano /opt/minecraft/server.properties server-port=25565 erver-ip= max-players=5 online-mods=true motd=A Minecraft Server
+    - name: Créer le fichier server.properties
+      copy:
+        dest: /opt/minecraft/server.properties  # Chemin du fichier server.properties
+        content: |
+          server-port=25565
+          server-ip=
+          max-players=5
+          online-mode=true
+          motd=A Minecraft Server
+        owner: minecraft
+        group: minecraft
+        mode: '0644'
+
+
+
