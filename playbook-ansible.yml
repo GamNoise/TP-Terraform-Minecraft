@@ -1,0 +1,59 @@
+---
+- name: Installation de l'environnement Minecraft sur VM GCP
+  hosts: all
+  become: true
+  vars:
+    minecraft_version: "1.20.4"
+    java_package: "openjdk-17-jre-headless"
+
+  tasks:
+    - name: Mise à jour du cache APT
+      apt:
+        update_cache: yes
+
+    - name: Installation de Java
+      apt:
+        name: "{{ java_package }}"
+        state: present
+
+    - name: Installation de Google Cloud SDK
+      apt:
+        deb: https://packages.cloud.google.com/apt/pool/google-cloud-sdk/google-cloud-sdk_369.0.0-0_all.deb
+
+    - name: Téléchargement de Minecraft Server JAR
+      get_url:
+        url: "https://launcher.mojang.com/v1/objects/6d3e1b0c56e28e9a9d4eeb9c49a2db3e5eec7c58/server.jar"
+        dest: /opt/minecraft_server.jar
+
+    - name: Creation du service Minecraft dans linux
+      copy:
+        dest: /etc/systemd/system/minecraft.service
+        content: |
+          [Unit]
+          Description=Minecraft Server
+          After=network.target
+
+          [Service]
+          User=ubuntu
+          WorkingDirectory=/opt
+          ExecStart=/usr/bin/java -Xmx2G -Xms2G -jar minecraft_server.jar nogui
+          Restart=on-failure
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Relancer le daemon systemd
+      systemd:
+        daemon_reload: yes
+
+    - name: Active et démarre le service Minecraft 
+      systemd:
+        name: minecraft
+        enabled: yes
+        state: started
+
+    - name: Accepte le flux Minecraft dans le pare-feu
+      ufw:
+        rule: allow
+        port: 25565
+        proto: tcp
