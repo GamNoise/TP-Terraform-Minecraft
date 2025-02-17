@@ -8,8 +8,8 @@ provider "google" {
 resource "google_compute_instance" "minecraft_vm" {
   name         = "minecraft-server"   # Nom de l'instance
   machine_type = "e2-medium"          # Type de machine
-  zone         = "europe-west1-b"     # Zone de l'instance
-  image        = "projects/your-project-id/global/images/minecraft-server-image"  # Image de l'instance
+  zone         = "europe-west9"     # Zone de l'instance
+  image        = "projects/bionic-union-451212-m1/global/images/minecraft-server-image"  # Image de l'instance
 
   # Configuration de l'interface réseau
   network_interface {
