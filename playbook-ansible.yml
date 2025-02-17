@@ -3,32 +3,32 @@
   hosts: all
   become: true
   vars:
-    minecraft_version: "1.20.4"
-    java_package: "openjdk-17-jre-headless"
+    minecraft_version: "1.20.4"  # Version de Minecraft à installer
+    java_package: "openjdk-17-jre-headless"  # Paquet Java à installer
 
   tasks:
     - name: Mise à jour du cache APT
       apt:
-        update_cache: yes
+        update_cache: yes  # Met à jour le cache APT
 
     - name: Installation de Java
       apt:
-        name: "{{ java_package }}"
+        name: "{{ java_package }}"  # Installe le paquet Java spécifié
         state: present
 
     - name: Ajouter la clé GPG du dépôt Google Cloud SDK
       apt_key:
-        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+        url: https://packages.cloud.google.com/apt/doc/apt-key.gpg  # URL de la clé GPG
         state: present
 
     - name: Téléchargement de Minecraft Server JAR
       get_url:
-        url: "https://launcher.mojang.com/v1/objects/6d3e1b0c56e28e9a9d4eeb9c49a2db3e5eec7c58/server.jar"
-        dest: /opt/minecraft_server.jar
+        url: "https://piston-data.mojang.com/v1/objects/4707d00eb834b446575d89a61a11b5d548d8c001/server.jar"  # URL du fichier JAR du serveur Minecraft
+        dest: /opt/minecraft_server.jar  # Destination du fichier téléchargé
 
     - name: Creation du service Minecraft dans linux
       copy:
-        dest: /etc/systemd/system/minecraft.service
+        dest: /etc/systemd/system/minecraft.service  # Chemin du fichier de service systemd
         content: |
           [Unit]
           Description=Minecraft Server
@@ -45,16 +45,58 @@
 
     - name: Relancer le daemon systemd
       systemd:
-        daemon_reload: yes
+        daemon_reload: yes  # Recharge le daemon systemd pour prendre en compte le nouveau service
+
+    - name: Installation de UFW
+      apt:
+        name: ufw  # Installe le pare-feu UFW
+        state: present
+
+    - name: Ouvrir le port Minecraft dans UFW
+      ufw:
+        rule: allow  # Autorise le port Minecraft dans UFW
+        port: 25565
+        proto: tcp
+        
+    - name: Créer l'utilisateur minecraft
+      user:
+        name: minecraft  # Crée un utilisateur système pour Minecraft
+        system: yes
+        create_home: no
+        shell: /bin/false
+
+    - name: Créer le répertoire du serveur Minecraft
+      file:
+        path: /opt/minecraft  # Crée le répertoire pour le serveur Minecraft
+        state: directory
+        owner: minecraft
+        group: minecraft
+        mode: '0755'
+
+    - name: Déplacer le fichier Minecraft Server JAR dans le bon répertoire
+      command: mv /opt/minecraft_server.jar /opt/minecraft/minecraft_server.jar  # Déplace le fichier JAR dans le répertoire du serveur
+      args:
+        creates: /opt/minecraft/minecraft_server.jar
+
+    - name: Modifier les permissions du dossier Minecraft
+      file:
+        path: /opt/minecraft  # Modifie les permissions du répertoire Minecraft
+        state: directory
+        owner: minecraft
+        group: minecraft
+        mode: '0755'
+        recurse: yes
+
+    - name: Accepter l'EULA de Minecraft
+      copy:
+        dest: /opt/minecraft/eula.txt  # Crée le fichier eula.txt pour accepter l'EULA
+        content: "eula=true"
+        owner: minecraft
+        group: minecraft
+        mode: '0644'
 
     - name: Active et démarre le service Minecraft 
       systemd:
-        name: minecraft
+        name: minecraft  # Active et démarre le service Minecraft
         enabled: yes
         state: started
-
-    - name: Accepte le flux Minecraft dans le pare-feu
-      ufw:
-        rule: allow
-        port: 25565
-        proto: tcp
