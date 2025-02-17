@@ -24,15 +24,9 @@
     - name: Téléchargement de Minecraft Server JAR
       get_url:
         url: "https://piston-data.mojang.com/v1/objects/4707d00eb834b446575d89a61a11b5d548d8c001/server.jar"  # URL du fichier JAR du serveur Minecraft
-        dest: /opt/minecraft_server.jar  # Destination du fichier téléchargé
+        dest: /opt/server.jar  # Destination du fichier téléchargé
 
-    # moove le jarfile en server.jar
-    - name: Renommer le fichier Minecraft Server JAR
-      command: mv /opt/minecraft_server.jar /opt/server.jar  # Renomme le fichier JAR en server.jar
-      args:
-        creates: /opt/server.jar
 
-        
     - name: Creation du service Minecraft dans linux
       copy:
         dest: /etc/systemd/system/minecraft.service  # Chemin du fichier de service systemd
@@ -44,7 +38,7 @@
           [Service]
           User=ubuntu
           WorkingDirectory=/opt
-          ExecStart=/usr/bin/java java -Xmx1024M -Xms1024M -jar server.jar nogui
+          ExecStart=java -Xmx1024M -Xms1024M -jar server.jar nogui
           Restart=on-failure
 
           [Install]
@@ -61,7 +55,7 @@
 
     - name: Ouvrir le port Minecraft dans UFW
       ufw:
-        rule: allow  # Autorise le port Minecraft dans UFW
+        rule: allow  # Autorise le port Minecraft dans UFW en entrée et en sortie
         port: 25565
         proto: tcp
         
@@ -72,31 +66,17 @@
         create_home: no
         shell: /bin/false
 
-    - name: Créer le répertoire du serveur Minecraft
+    # attribuer les droits sur /opt
+    - name: Attribuer les droits sur le dossier /opt/
       file:
-        path: /opt/minecraft  # Crée le répertoire pour le serveur Minecraft
-        state: directory
+        path: /opt/
         owner: minecraft
         group: minecraft
         mode: '0755'
-
-    - name: Déplacer le fichier Minecraft Server JAR dans le bon répertoire
-      command: mv /opt/minecraft_server.jar /opt/minecraft/minecraft_server.jar  # Déplace le fichier JAR dans le répertoire du serveur
-      args:
-        creates: /opt/minecraft/minecraft_server.jar
-
-    - name: Modifier les permissions du dossier Minecraft
-      file:
-        path: /opt/minecraft  # Modifie les permissions du répertoire Minecraft
-        state: directory
-        owner: minecraft
-        group: minecraft
-        mode: '0755'
-        recurse: yes
 
     - name: Accepter l'EULA de Minecraft
       copy:
-        dest: /opt/minecraft/eula.txt  # Crée le fichier eula.txt pour accepter l'EULA
+        dest: /opt/eula.txt  # Crée le fichier eula.txt pour accepter l'EULA
         content: "eula=true"
         owner: minecraft
         group: minecraft
@@ -112,10 +92,10 @@
 
 # opt/minecraft -> 
 
-# Créer un fichier server.properties avec  nano /opt/minecraft/server.properties server-port=25565 erver-ip= max-players=5 online-mods=true motd=A Minecraft Server
+# Créer un fichier server.properties avec  nano /opt/server.properties server-port=25565 erver-ip= max-players=5 online-mods=true motd=A Minecraft Server
     - name: Créer le fichier server.properties
       copy:
-        dest: /opt/minecraft/server.properties  # Chemin du fichier server.properties
+        dest: /opt/server.properties  # Chemin du fichier server.properties
         content: |
           server-port=25565
           server-ip=
