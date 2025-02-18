@@ -20,6 +20,7 @@ sudo apt-get install ansible -y
 ```
 Editer le fichier inventory.ini avec
 
+
 # Clé SSH 
 ## Générer la paire de clés SSH
 ```bash
@@ -34,10 +35,10 @@ ansible-playbook -i inventory.ini playbook-ansible.yml
 ```
 
 
-# Commmande pour faire une image packer 
+# Commmande pour faire une image de l'instance GCP
 ```sh
 gcloud compute images create image-srv-min \
-    --source-disk=vm-template \
-    --source-disk-zone=europe-west9-b \
+    --source-disk=NOM-DE-LINSTANCE \
+    --source-disk-zone=ZONE-DE-LINSTANCE \
     --project=bionic-union-451212-m1
 ```
