@@ -23,7 +23,6 @@ Ce projet vise à automatiser la création et la configuration d'un serveur Mine
 Avant de commencer, assurez-vous d'avoir :
 
 - Un compte Google Cloud avec les API requises activées ☁️
-- Terraform installé sur votre machine locale 🏗️
 - Ansible installé sur votre machine locale ou sur la VM GCP 🤖
 - Accès SSH à votre VM sur GCP 🔑
 - Une paire de clés SSH générée pour l'authentification 🔐
@@ -63,7 +62,7 @@ Modifiez le fichier `inventory.ini` selon vos besoins.
 
 ## Déploiement avec Terraform 🚀
 
-Initialisez et appliquez Terraform pour créer l'infrastructure GCP :
+Initialisez et appliquez Terraform pour créer l'infrastructure GCP (commandes à exécuter sur GCP) :
 
 ```bash
 git clone https://github.com/GamNoise/TP-Terraform-Minecraft.git
