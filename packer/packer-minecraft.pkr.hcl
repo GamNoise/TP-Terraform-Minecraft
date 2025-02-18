@@ -9,7 +9,7 @@ packer {
 
 source "googlecompute" "default" {
   project_id      = "bionic-union-451212-m1"
-  source_image    = "vm-template"
+  instance_id    = "3013028065008584917"
   machine_type    = "e2-medium"
   zone            = "europe-west1-b"
   image_name      = "image-vm-template"
