@@ -1,3 +1,5 @@
+#PAS_BESOIN_DE_CE_FICHIER_POUR_LE_MOMENT
+#LES COMMANDES SONT EXECUTEES MANUELLEMENT
 {
   "builders": [
     {
@@ -7,7 +9,6 @@
       "image_family": "minecraft-image",
       "image_name": "minecraft-server-image",
       "source_image_family": "debian-11",
-      "ssh_username": "your-username",
       "image_description": "Minecraft server image",
       "tags": ["minecraft"],
       "communicator": "ssh",
