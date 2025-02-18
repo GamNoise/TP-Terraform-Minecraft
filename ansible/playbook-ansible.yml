@@ -58,19 +58,24 @@
         name: ufw  # Installe le pare-feu UFW
         state: present
 
-    - name: Ouvrir le port Minecraft dans UFW
-      ufw:
-        rule: allow  # Autorise le port Minecraft dans UFW en entrée
-        port: 25565
-        proto: tcp
-        direction: in
+    - name: Ouvrir les ports dans UFW
+      hosts: all
+      become: true
+      tasks:
+        - name: Configurer les règles UFW
+          ufw:
+            rule: allow
+            port: "{{ item.port }}"
+            proto: "{{ item.proto }}"
+            direction: in
+          with_items:
+            - { port: "25565", proto: "tcp" }
+            - { port: "22", proto: "tcp" }
 
-    - name: Ouvrir le port SSH dans UFW
-      ufw:
-        rule: allow  # Autorise le port SSH dans UFW en entrée
-        port: 22
-        proto: tcp
-        direction: in
+        - name: Activer UFW
+          ufw:
+            state: enabled
+
 
     - name: Activer UFW
       ufw:
