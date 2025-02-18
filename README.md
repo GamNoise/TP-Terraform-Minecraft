@@ -117,4 +117,10 @@ Cela créera automatiquement les ressources nécessaires, y compris les machines
 Ce projet est un TP Cloud & DevOps permettant de démontrer l'utilisation de Terraform et Ansible pour automatiser le déploiement d'une infrastructure cloud pour un serveur Minecraft. 🎮🚀
 
 
+## Mention 
+### Auteurs
 
+- [Léo Anclin](https://github.com/Castyan)
+- [Valentin Halleray](https://github.com/GamNoise)
+- [Baptiste Morvilliers](https://github.com/BaptisteMorvilliers)
+- [Matéo Demey](https://github.com/Mamat2601)
