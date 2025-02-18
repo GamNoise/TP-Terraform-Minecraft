@@ -10,10 +10,10 @@ Pour télécharger la vm-template, utilisez la commande suivante via SSH dans la
 wget -O playbook-ansible.yml "https://raw.githubusercontent.com/GamNoise/TP-Terraform-Minecraft/refs/heads/main/ansible/playbook-ansible.yml"
 chmod +x playbook-ansible.yml  # Rendre le script exécutable
 
-wget "https://raw.githubusercontent.com/GamNoise/TP-Terraform-Minecraft/refs/heads/main/ansible/inventory.ini"
+wget -O inventory.ini "https://raw.githubusercontent.com/GamNoise/TP-Terraform-Minecraft/refs/heads/main/ansible/inventory.ini"
 chmod +x inventory.ini
 
-wget "https://raw.githubusercontent.com/GamNoise/TP-Terraform-Minecraft/refs/heads/main/ansible/ansible.cfg"
+wget -O ansible.cfg "https://raw.githubusercontent.com/GamNoise/TP-Terraform-Minecraft/refs/heads/main/ansible/ansible.cfg"
 chmod +x ansible.cfg
 
 sudo apt-get install ansible -y
@@ -42,3 +42,5 @@ gcloud compute images create image-srv-min \
     --source-disk-zone=ZONE-DE-LINSTANCE \
     --project=bionic-union-451212-m1
 ```
+
+
