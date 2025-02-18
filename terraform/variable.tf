@@ -1,16 +1,16 @@
 variable "project_id" {
-  description = "GCP Project ID"
+  description = "ID du projet GCP"
   type        = string
   default     = "bionic-union-451212-m1"
 }
 
 variable "zone" {
-  description = "GCP Zone"
+  description = "Zone GCP"
   type        = string
-  default     = "europe-west9"
+  default     = "europe-west9-b"
 }
 
 variable "team_id" {
-  description = "L'identifiant de l'équipe"
+  description = "Identifiant de l'équipe"
   type        = string
 }
