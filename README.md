@@ -7,14 +7,44 @@ TP-CESI-2025 Terraform Ansible pour l'automatisation de la création d'un serveu
 Pour télécharger la vm-template, utilisez la commande suivante via SSH dans la console GCP :
 
 ```sh
-wget "https://github.com/GamNoise/TP-Terraform-Minecraft/blob/main/ansible/playbook-ansible.yml"
+wget -O playbook-ansible.yml "https://raw.githubusercontent.com/GamNoise/TP-Terraform-Minecraft/refs/heads/main/ansible/playbook-ansible.yml"
+chmod +x playbook-ansible.yml  # Rendre le script exécutable
 
-wget "https://github.com/GamNoise/TP-Terraform-Minecraft/blob/main/ansible/inventory.ini"
+wget "https://raw.githubusercontent.com/GamNoise/TP-Terraform-Minecraft/refs/heads/main/ansible/inventory.ini"
+chmod +x inventory.ini
 
-wget "https://github.com/GamNoise/TP-Terraform-Minecraft/blob/main/ansible/ansible.cfg"
+wget "https://raw.githubusercontent.com/GamNoise/TP-Terraform-Minecraft/refs/heads/main/ansible/ansible.cfg"
+chmod +x ansible.cfg
+
+sudo apt-get install ansible -y
 ```
 
-Remplacez `<URL_DE_LA_VM_TEMPLATE>` par l'URL réelle de la vm-template.
+# Clé SSH 
+## Générer la paire de clés SSH
+
+```bash
+ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa_gcp
+```
+
+Cela va générer une clé privée `~/.ssh/id_rsa_gcp` et une clé publique `~/.ssh/id_rsa_gcp.pub`.
+
+## Ajouter la clé publique à votre instance GCP
+
+Vous pouvez utiliser `gcloud` pour ajouter la clé publique à votre instance, comme suit :
+
+```bash
+gcloud compute instances add-metadata template3 --metadata "ssh-keys=ubuntu:$(cat ~/.ssh/id_rsa_gcp.pub)"
+```
+
+Assurez-vous de remplacer `template3` par le nom réel de votre instance GCP.
+
+## Tester la connexion
+
+Ensuite, vous pouvez tester la connexion SSH avec la clé privée générée :
+
+```bash
+ssh -i ~/.ssh/id_rsa_gcp ubuntu@34.90.52.100
+```
 # Commande pour jouer le ansible 
 ```sh
 ansible-playbook -i inventory.ini playbook-ansible.yml
