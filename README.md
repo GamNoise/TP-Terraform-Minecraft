@@ -124,7 +124,7 @@ Le projet est hébergé sur GitHub. Retrouvez le code source, suivez les mises �
 
 - Ajout d'un **reverse proxy / load balancer** pour améliorer la sécurité des accès 🔄
 - Automatisation CI/CD pour le **déploiement et la validation** des configurations 🚦
-- Amélioration des **règles de firewall** et de la gestion des accès utilisateurs via Ansible et Terraform 🔥
+- Amélioration des **règles de firewall** et de la gestion des accès utilisateurs via Ansible (WhiteList des users) et Terraform 🔥
 
 ---
 
