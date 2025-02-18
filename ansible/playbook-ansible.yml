@@ -65,6 +65,12 @@
         proto: tcp
         direction: in
         state: enabled
+      ufw:
+        rule: allow
+        port: 22
+        proto: tcp
+        direction: in
+        state: enabled
         
     - name: Créer l'utilisateur minecraft
       user:
