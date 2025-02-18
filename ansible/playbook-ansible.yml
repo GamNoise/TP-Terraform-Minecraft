@@ -20,7 +20,6 @@
       apt:
         deb: "/tmp/jdk-21_linux-x64_bin.deb"
 
-
     - name: Ajouter la clé GPG du dépôt Google Cloud SDK
       apt_key:
         url: https://packages.cloud.google.com/apt/doc/apt-key.gpg  # URL de la clé GPG
@@ -30,7 +29,6 @@
       get_url:
         url: "https://piston-data.mojang.com/v1/objects/4707d00eb834b446575d89a61a11b5d548d8c001/server.jar"  # URL du fichier JAR du serveur Minecraft
         dest: /opt/server.jar  # Destination du fichier téléchargé
-
 
     - name: Creation du service Minecraft dans linux
       copy:
@@ -59,27 +57,18 @@
         state: present
 
     - name: Ouvrir les ports dans UFW
-      hosts: all
-      become: true
-      tasks:
-        - name: Configurer les règles UFW
-          ufw:
-            rule: allow
-            port: "{{ item.port }}"
-            proto: "{{ item.proto }}"
-            direction: in
-          with_items:
-            - { port: "25565", proto: "tcp" }
-            - { port: "22", proto: "tcp" }
-
-        - name: Activer UFW
-          ufw:
-            state: enabled
-
+      ufw:
+        rule: allow
+        port: "{{ item.port }}"
+        proto: "{{ item.proto }}"
+        direction: in
+      with_items:
+        - { port: "25565", proto: "tcp" }
+        - { port: "22", proto: "tcp" }
 
     - name: Activer UFW
       ufw:
-          state: enabled  # Active UFW
+        state: enabled  # Active UFW
 
     - name: Créer l'utilisateur minecraft
       user:
@@ -104,7 +93,6 @@
         group: minecraft
         mode: '0644'
 
-# Créer un fichier server.properties avec  nano /opt/server.properties server-port=25565 erver-ip= max-players=5 online-mods=true motd=A Minecraft Server
     - name: Créer le fichier server.properties
       copy:
         dest: /opt/server.properties  # Chemin du fichier server.properties
@@ -123,3 +111,4 @@
         name: minecraft  # Active et démarre le service Minecraft
         enabled: yes
         state: started
+        
