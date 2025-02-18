@@ -1,5 +1,7 @@
 # TP-Terraform-Minecraft 🎮
 
+![image](https://github.com/user-attachments/assets/cc98508b-fcf8-4aee-b1e5-224ec1c517bc)
+
 ## Description 📝
 
 Ce projet vise à automatiser la création et la configuration d'un serveur Minecraft sur Google Cloud Platform (GCP) à l'aide de Terraform et Ansible. Chaque équipe dispose d'une instance de serveur Minecraft isolée, déployée dynamiquement lors de l'inscription.
