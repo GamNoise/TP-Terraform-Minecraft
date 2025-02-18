@@ -65,8 +65,8 @@
           proto: tcp
           direction: in
 
-            - name: Ouvrir le port SSH dans UFW
-              ufw:
+    - name: Ouvrir le port SSH dans UFW
+      ufw:
           rule: allow  # Autorise le port SSH dans UFW en entrée
           port: 22
           proto: tcp
@@ -75,7 +75,7 @@
     - name: Activer UFW
       ufw:
           state: enabled  # Active UFW
-          
+
     - name: Créer l'utilisateur minecraft
       user:
         name: minecraft  # Crée un utilisateur système pour Minecraft
