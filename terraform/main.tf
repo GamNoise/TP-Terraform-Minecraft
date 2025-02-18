@@ -26,4 +26,3 @@ resource "google_compute_address" "minecraft_ip" {
   name = "minecraft-ip-${var.team_id}"  # Nom dynamique pour l'adresse IP
 }
 
-
