@@ -26,20 +26,6 @@ resource "google_compute_address" "minecraft_ip" {
   name = "minecraft-ip-${var.team_id}"  # Nom dynamique pour l'adresse IP
 }
 
-resource "null_resource" "add_ip_to_firestore" {
-  provisioner "local-exec" {
-    command = <<EOT
-      curl -X POST https://REGION-PROJECT_ID.cloudfunctions.net/addIpToFirestore \
-      -H "Content-Type: application/json" \
-      -d '{"ip_address": "${google_compute_address.minecraft_ip.address}", "team_id": "${var.team_id}"}'
-    EOT
-  }
-
-  depends_on = [
-    google_compute_instance.minecraft_vm  # Dépendance à l'instance Minecraft
-  ]
-}
-
-output "minecraft_vm_public_ip" {
+output "minecraft_vm_public_ip2" {
   value = google_compute_address.minecraft_ip.address  # Affiche l'IP publique de la VM
 }
