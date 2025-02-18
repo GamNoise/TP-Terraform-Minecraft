@@ -4,7 +4,7 @@
   become: true
   vars:
     minecraft_version: "1.20.4"  # Version de Minecraft à installer
-    java_package: "openjdk-17-jre-headless"  # Paquet Java à installer
+    java_package: "openjdk-21-jre-headless"  # Paquet Java à installer
 
   tasks:
     - name: Mise à jour du cache APT
@@ -63,6 +63,8 @@
         rule: allow  # Autorise le port Minecraft dans UFW en entrée et en sortie
         port: 25565
         proto: tcp
+        direction: in
+        state: enabled
         
     - name: Créer l'utilisateur minecraft
       user:
@@ -87,16 +89,6 @@
         group: minecraft
         mode: '0644'
 
-    - name: Active et démarre le service Minecraft 
-      systemd:
-        name: minecraft  # Active et démarre le service Minecraft
-        enabled: yes
-        state: started
-
-        # java -Xmx1024M -Xms1024M -jar server.jar nogui
-
-# opt/minecraft -> 
-
 # Créer un fichier server.properties avec  nano /opt/server.properties server-port=25565 erver-ip= max-players=5 online-mods=true motd=A Minecraft Server
     - name: Créer le fichier server.properties
       copy:
@@ -111,5 +103,8 @@
         group: minecraft
         mode: '0644'
 
-
-
+    - name: Active et démarre le service Minecraft 
+      systemd:
+        name: minecraft  # Active et démarre le service Minecraft
+        enabled: yes
+        state: started
