@@ -62,21 +62,6 @@ Modifiez le fichier `inventory.ini` selon vos besoins.
 
 ---
 
-## Déploiement avec Terraform 🚀
-
-Initialisez et appliquez Terraform pour créer l'infrastructure GCP (commandes à exécuter sur GCP) :
-
-```bash
-git clone https://github.com/GamNoise/TP-Terraform-Minecraft.git
-cd TP-Terraform-Minecraft/terraform
-terraform init
-terraform apply
-```
-
-Cela créera automatiquement les ressources nécessaires, y compris les machines virtuelles Minecraft pour chaque équipe. 🎮
-
----
-
 ## Configuration avec Ansible ⚡
 
 Une fois la VM déployée, exécutez Ansible pour configurer l'environnement Minecraft :
@@ -99,6 +84,21 @@ gcloud compute images create image-srv-min \
 ```
 
 Remplacez `NOM-DE-LINSTANCE` et `ZONE-DE-LINSTANCE` par les valeurs correspondantes.
+
+---
+
+## Déploiement avec Terraform 🚀
+
+Initialisez et appliquez Terraform pour créer l'infrastructure GCP (commandes à exécuter sur GCP) :
+
+```bash
+git clone https://github.com/GamNoise/TP-Terraform-Minecraft.git
+cd TP-Terraform-Minecraft/terraform
+terraform init
+terraform apply
+```
+
+Cela créera automatiquement les ressources nécessaires, y compris les machines virtuelles Minecraft pour chaque équipe. 🎮
 
 ---
 
