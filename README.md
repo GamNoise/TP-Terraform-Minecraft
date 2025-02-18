@@ -18,33 +18,16 @@ chmod +x ansible.cfg
 
 sudo apt-get install ansible -y
 ```
+Editer le fichier inventory.ini avec
 
 # Clé SSH 
 ## Générer la paire de clés SSH
-
 ```bash
 ssh-keygen -t rsa -b 2048 -f ~/.ssh/id_rsa_gcp
+gcloud compute instances add-metadata NOM_DE_LINSTANCE --metadata "ssh-keys=ubuntu:$(cat ~/.ssh/id_rsa_gcp.pub)"
 ```
+Remplacer NOM_DE_LINSTANCE par le nom réel de votre instance
 
-Cela va générer une clé privée `~/.ssh/id_rsa_gcp` et une clé publique `~/.ssh/id_rsa_gcp.pub`.
-
-## Ajouter la clé publique à votre instance GCP
-
-Vous pouvez utiliser `gcloud` pour ajouter la clé publique à votre instance, comme suit :
-
-```bash
-gcloud compute instances add-metadata template3 --metadata "ssh-keys=ubuntu:$(cat ~/.ssh/id_rsa_gcp.pub)"
-```
-
-Assurez-vous de remplacer `template3` par le nom réel de votre instance GCP.
-
-## Tester la connexion
-
-Ensuite, vous pouvez tester la connexion SSH avec la clé privée générée :
-
-```bash
-ssh -i ~/.ssh/id_rsa_gcp ubuntu@34.90.52.100
-```
 # Commande pour jouer le ansible 
 ```sh
 ansible-playbook -i inventory.ini playbook-ansible.yml
