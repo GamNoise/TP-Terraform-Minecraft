@@ -7,7 +7,11 @@ TP-CESI-2025 Terraform Ansible pour l'automatisation de la création d'un serveu
 Pour télécharger la vm-template, utilisez la commande suivante via SSH dans la console GCP :
 
 ```sh
-wget <URL_DE_LA_VM_TEMPLATE>
+wget "https://github.com/GamNoise/TP-Terraform-Minecraft/blob/main/ansible/playbook-ansible.yml"
+
+wget "https://github.com/GamNoise/TP-Terraform-Minecraft/blob/main/ansible/inventory.ini"
+
+wget "https://github.com/GamNoise/TP-Terraform-Minecraft/blob/main/ansible/ansible.cfg"
 ```
 
 Remplacez `<URL_DE_LA_VM_TEMPLATE>` par l'URL réelle de la vm-template.
