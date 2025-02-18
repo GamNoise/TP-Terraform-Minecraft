@@ -110,7 +110,7 @@ Cela créera automatiquement les ressources nécessaires, y compris les machines
 
 - Ajout d'un **reverse proxy / load balancer** pour améliorer la sécurité des accès 🔄
 - Automatisation CI/CD pour le **déploiement et la validation** des configurations 🚦
-- Amélioration des **règles de firewall** et de la gestion des accès utilisateurs via Ansible et Terraform 🔥
+- Amélioration des **règles de firewall** et de la gestion des accès utilisateurs via Ansible et Terraform (WhiteList) 🔥
 
 ---
 
