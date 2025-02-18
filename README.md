@@ -126,7 +126,6 @@ Le projet est hébergé sur GitHub. Retrouvez le code source, suivez les mises �
 - Automatisation CI/CD pour le **déploiement et la validation** des configurations 🚦
 - Amélioration des **règles de firewall** et de la gestion des accès utilisateurs via Ansible (WhiteList des users) et Terraform 🔥
 
----
 
 Ce projet est un TP Cloud & DevOps permettant de démontrer l'utilisation de Terraform et Ansible pour automatiser le déploiement d'une infrastructure cloud pour un serveur Minecraft. 🎮🚀
 
