@@ -74,7 +74,7 @@ ansible-playbook -i inventory.ini playbook-ansible.yml
 
 ## Création d'une Image de l'Instance 📸
 
-Une fois votre VM configurée, créez une image pour faciliter les déploiements futurs :
+Une fois votre VM configurée, créez une image pour faciliter les déploiements futurs. Avant la création de l'image, la VM faisant office d'image doit être impérativement **ETEINTE** ! :
 
 ```sh
 gcloud compute images create image-srv-min \
